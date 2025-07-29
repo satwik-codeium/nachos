@@ -31,7 +31,7 @@ public class Lock {
      * this lock.
      */
     public void acquire() {
-	Lib.assert(!isHeldByCurrentThread());
+	Lib.assertTrue(!isHeldByCurrentThread());
 
 	boolean intStatus = Machine.interrupt().disable();
 	KThread thread = KThread.currentThread();
@@ -45,7 +45,7 @@ public class Lock {
 	    lockHolder = thread;
 	}
 
-	Lib.assert(lockHolder == thread);
+	Lib.assertTrue(lockHolder == thread);
 
 	Machine.interrupt().restore(intStatus);
     }
@@ -54,7 +54,7 @@ public class Lock {
      * Atomically release this lock, allowing other threads to acquire it.
      */
     public void release() {
-	Lib.assert(isHeldByCurrentThread());
+	Lib.assertTrue(isHeldByCurrentThread());
 
 	boolean intStatus = Machine.interrupt().disable();
 

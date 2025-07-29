@@ -46,7 +46,7 @@ public class SynchConsole {
 	    readWait.P();
 
 	    value = console.readByte();
-	    Lib.assert(value != -1);
+	    Lib.assertTrue(value != -1);
 	}
 	else {
 	    value = -1;

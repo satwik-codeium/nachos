@@ -96,7 +96,7 @@ public final class Processor {
      * @return	the value of the register.
      */
     public int readRegister(int number) {
-	Lib.assert(number >= 0 && number < numUserRegisters);
+	Lib.assertTrue(number >= 0 && number < numUserRegisters);
 	
 	return registers[number];
     }
@@ -108,7 +108,7 @@ public final class Processor {
      * @param	value	the value to write.
      */
     public void writeRegister(int number, int value) {
-	Lib.assert(number >= 0 && number < numUserRegisters);
+	Lib.assertTrue(number >= 0 && number < numUserRegisters);
 
 	if (number != 0)
 	    registers[number] = value;
@@ -145,7 +145,7 @@ public final class Processor {
      * @param	pageTable	the page table to use.
      */
     public void setPageTable(TranslationEntry[] pageTable) {
-	Lib.assert(!usingTLB);
+	Lib.assertTrue(!usingTLB);
 
 	this.translations = pageTable;
     }
@@ -156,7 +156,7 @@ public final class Processor {
      * @return	the number of entries in this processor's TLB.
      */
     public int getTLBSize() {
-	Lib.assert(usingTLB);
+	Lib.assertTrue(usingTLB);
     
 	return tlbSize;
     }
@@ -168,8 +168,8 @@ public final class Processor {
      * @return	the contents of the specified TLB entry.
      */
     public TranslationEntry readTLBEntry(int number) {
-	Lib.assert(usingTLB);
-	Lib.assert(number >= 0 && number < tlbSize);
+	Lib.assertTrue(usingTLB);
+	Lib.assertTrue(number >= 0 && number < tlbSize);
 
 	return new TranslationEntry(translations[number]);
     }
@@ -185,8 +185,8 @@ public final class Processor {
      * @param	entry	the new contents of the TLB entry.
      */
     public void writeTLBEntry(int number, TranslationEntry entry) {
-	Lib.assert(usingTLB);
-	Lib.assert(number >= 0 && number < tlbSize);
+	Lib.assertTrue(usingTLB);
+	Lib.assertTrue(number >= 0 && number < tlbSize);
 
 	translations[number] = new TranslationEntry(entry);
     }
@@ -222,8 +222,8 @@ public final class Processor {
      * @return	a 32-bit address consisting of the specified page and offset.
      */
     public static int makeAddress(int page, int offset) {
-	Lib.assert(page >= 0 && page < maxPages);
-	Lib.assert(offset >= 0 && offset < pageSize);
+	Lib.assertTrue(page >= 0 && page < maxPages);
+	Lib.assertTrue(offset >= 0 && offset < pageSize);
 
 	return (page * pageSize) | offset;
     }
@@ -349,7 +349,7 @@ public final class Processor {
 	    System.out.println("\treadMem vaddr=0x" + Lib.toHexString(vaddr)
 			       + ", size=" + size);
 
-	Lib.assert(size==1 || size==2 || size==4);
+	Lib.assertTrue(size==1 || size==2 || size==4);
 	
 	int value = Lib.bytesToInt(mainMemory, translate(vaddr, size, false),
 				   size);
@@ -377,7 +377,7 @@ public final class Processor {
 			       + ", size=" + size + ", value=0x"
 			       + Lib.toHexString(value, size*2));
 
-	Lib.assert(size==1 || size==2 || size==4);
+	Lib.assertTrue(size==1 || size==2 || size==4);
 	
 	Lib.bytesFromInt(mainMemory, translate(vaddr, size, true), size,
 			 value);
@@ -544,7 +544,7 @@ public final class Processor {
 
     private class MipsException extends Exception {
 	public MipsException(int cause) {
-	    Lib.assert(cause >= 0 && cause < exceptionNames.length);
+	    Lib.assertTrue(cause >= 0 && cause < exceptionNames.length);
 
 	    this.cause = cause;
 	}
@@ -567,7 +567,7 @@ public final class Processor {
 
 	    finishLoad();
 
-	    Lib.assert(exceptionHandler != null);
+	    Lib.assertTrue(exceptionHandler != null);
 
 	    // autograder might not want kernel to know about this exception
 	    if (!Machine.autoGrader().exceptionHandler(privilege))
@@ -713,7 +713,7 @@ public final class Processor {
 	    }
 
 	    int spaceIndex = name.indexOf(' ');
-	    Lib.assert(spaceIndex!=-1 && spaceIndex==name.lastIndexOf(' '));
+	    Lib.assertTrue(spaceIndex!=-1 && spaceIndex==name.lastIndexOf(' '));
 
 	    String instname = name.substring(0, spaceIndex);
 	    char[] args = name.substring(spaceIndex+1).toCharArray();
@@ -788,7 +788,7 @@ public final class Processor {
 		    maxCharsPrinted += 10;
 		    break;
 		default:
-		    Lib.assert(false);    
+		    Lib.assertTrue(false);    
 		}
 		if (i+1 < args.length) {
 		    System.out.print(", ");
@@ -798,7 +798,7 @@ public final class Processor {
 		else {
 		    // most separation possible is tsi, 5+1+1=7,
 		    // thankfully less than 8 (makes this possible)
-		    Lib.assert(maxCharsPrinted-minCharsPrinted < 8);
+		    Lib.assertTrue(maxCharsPrinted-minCharsPrinted < 8);
 		    // longest string is stj, which is 40-42 chars w/ -d M;
 		    // go for 48
 		    while ((minCharsPrinted%8) != 0) {

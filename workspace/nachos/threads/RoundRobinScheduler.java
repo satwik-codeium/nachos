@@ -37,7 +37,7 @@ public class RoundRobinScheduler extends Scheduler {
 	 * @param	thread	the thread to append to the queue.
 	 */    
 	public void waitForAccess(KThread thread) {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 		       
 	    waitQueue.add(thread);
 	}
@@ -50,7 +50,7 @@ public class RoundRobinScheduler extends Scheduler {
 	 *		empty.
 	 */
 	public KThread nextThread() {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 		       
 	    if (waitQueue.isEmpty())
 		return null;
@@ -64,16 +64,16 @@ public class RoundRobinScheduler extends Scheduler {
 	 * threads are waiting for access.
 	 */
 	public void acquire(KThread thread) {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 		       
-	    Lib.assert(waitQueue.isEmpty());
+	    Lib.assertTrue(waitQueue.isEmpty());
 	}
 
 	/**
 	 * Print out the contents of the queue.
 	 */
 	public void print() {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 
 	    for (Iterator i=waitQueue.iterator(); i.hasNext(); )
 		System.out.print((KThread) i.next() + " ");

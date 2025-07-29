@@ -83,10 +83,10 @@ public class NetworkLink {
 	    localHost = null;
 	}
 
-	Lib.assert(localHost != null);
+	Lib.assertTrue(localHost != null);
 
 	reliability = Config.getDouble("NetworkLink.reliability");
-	Lib.assert(reliability > 0 && reliability <= 1.0);
+	Lib.assertTrue(reliability > 0 && reliability <= 1.0);
 
 	socket = null;
 
@@ -162,7 +162,7 @@ public class NetworkLink {
     }
 
     private synchronized void receiveInterrupt() {
-	Lib.assert(incomingPacket == null);
+	Lib.assertTrue(incomingPacket == null);
 
 	if (incomingBytes != null) {
 	    try {
@@ -244,7 +244,7 @@ public class NetworkLink {
     }
 
     private void sendInterrupt() {
-	Lib.assert(outgoingPacket != null);
+	Lib.assertTrue(outgoingPacket != null);
 
 	// randomly drop packets, according to its reliability
 	if (Lib.random() <= reliability) {

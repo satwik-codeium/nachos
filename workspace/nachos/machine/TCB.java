@@ -48,15 +48,15 @@ public final class TCB {
      */
     public void start(Runnable target) {
 	// make sure this TCB has not already been started
-	Lib.assert(javaThread == null && !done);
+	Lib.assertTrue(javaThread == null && !done);
 	// make sure there aren't too many threads already
-	Lib.assert(runningThreads.size() < maxThreads);
+	Lib.assertTrue(runningThreads.size() < maxThreads);
 
 	isFirstTCB = runningThreads.isEmpty();
 	
 	if (!isFirstTCB) {
 	    // make sure the current TCB is correct
-	    Lib.assert(currentTCB != null &&
+	    Lib.assertTrue(currentTCB != null &&
 		       currentTCB.javaThread == Thread.currentThread());
 	}
 
@@ -106,11 +106,11 @@ public final class TCB {
      */
     public void contextSwitch() {
 	// make sure the current TCB is correct
-	Lib.assert(currentTCB != null &&
+	Lib.assertTrue(currentTCB != null &&
 		   currentTCB.javaThread == Thread.currentThread());
 
 	// make sure AutoGrader.runningThread() called associateThread()
-	Lib.assert(currentTCB.associated);
+	Lib.assertTrue(currentTCB.associated);
 	currentTCB.associated = false;
 	
 	// can't switch from a TCB to itself
@@ -140,15 +140,15 @@ public final class TCB {
      */
     public void destroy() {
 	// make sure the current TCB is correct
-	Lib.assert(currentTCB != null &&
+	Lib.assertTrue(currentTCB != null &&
 		   currentTCB.javaThread == Thread.currentThread());
 	// can't destroy current thread
-	Lib.assert(this != currentTCB);
+	Lib.assertTrue(this != currentTCB);
 	// thread must have started but not be destroyed yet
-	Lib.assert(javaThread != null && !done);
+	Lib.assertTrue(javaThread != null && !done);
 
 	// ensure AutoGrader.finishingCurrentThread() called authorizeDestroy()
-	Lib.assert(nachosThread == toBeDestroyed);
+	Lib.assertTrue(nachosThread == toBeDestroyed);
 	toBeDestroyed = null;
 
 	this.done = true;
@@ -180,11 +180,11 @@ public final class TCB {
 
     private void threadroot() {
 	// this should be running the current thread
-	Lib.assert(javaThread == Thread.currentThread());
+	Lib.assertTrue(javaThread == Thread.currentThread());
 
 	if (!isFirstTCB) {
 	    // make sure currentTCB is some other thread
-	    Lib.assert(currentTCB != null && this != currentTCB);
+	    Lib.assertTrue(currentTCB != null && this != currentTCB);
 	    
 	    // let currentTCB get out of start()
 	    currentTCB.interrupt();
@@ -194,7 +194,7 @@ public final class TCB {
 	}
 	else {
 	    // make sure currentTCB is us
-	    Lib.assert(currentTCB != null && this == currentTCB);
+	    Lib.assertTrue(currentTCB != null && this == currentTCB);
 
 	    // we get to run immediately
 	    running = true;
@@ -257,13 +257,13 @@ public final class TCB {
     private void associateThread(KThread thread) {
 	// make sure AutoGrader.runningThread() gets called only once per
 	// context switch
-	Lib.assert(!associated);
+	Lib.assertTrue(!associated);
 	associated = true;
 
-	Lib.assert(thread != null);
+	Lib.assertTrue(thread != null);
 
 	if (nachosThread != null)
-	    Lib.assert(thread == nachosThread);
+	    Lib.assertTrue(thread == nachosThread);
 	else
 	    nachosThread = thread;
     }
@@ -271,7 +271,7 @@ public final class TCB {
     private static void authorizeDestroy(KThread thread) {
 	// make sure AutoGrader.finishingThread() gets called only once per
 	// destroy
-	Lib.assert(toBeDestroyed == null);
+	Lib.assertTrue(toBeDestroyed == null);
 	toBeDestroyed = thread;
     }
 
@@ -298,7 +298,7 @@ public final class TCB {
 
     private static class TCBPrivilege implements Privilege.TCBPrivilege {
 	public void associateThread(KThread thread) {
-	    Lib.assert(currentTCB != null);
+	    Lib.assertTrue(currentTCB != null);
 	    currentTCB.associateThread(thread);
 	}
 	public void authorizeDestroy(KThread thread) {

@@ -34,7 +34,7 @@ public class KThread {
      * @return	the current thread.
      */
     public static KThread currentThread() {
-	Lib.assert(currentThread != null);
+	Lib.assertTrue(currentThread != null);
 	return currentThread;
     }
     
@@ -143,8 +143,8 @@ public class KThread {
      * its target's <tt>run</tt> method).
      */
     public void fork() {
-	Lib.assert(status == statusNew);
-	Lib.assert(target != null);
+	Lib.assertTrue(status == statusNew);
+	Lib.assertTrue(target != null);
 	
 	Lib.debug(dbgThread,
 		  "Forking thread: " + toString() + " Runnable: " + target);
@@ -171,7 +171,7 @@ public class KThread {
     private void begin() {
 	Lib.debug(dbgThread, "Beginning thread: " + toString());
 	
-	Lib.assert(this == currentThread);
+	Lib.assertTrue(this == currentThread);
 
 	restoreState();
 
@@ -195,7 +195,7 @@ public class KThread {
 
 	Machine.autoGrader().finishingCurrentThread();
 
-	Lib.assert(toBeDestroyed == null);
+	Lib.assertTrue(toBeDestroyed == null);
 	toBeDestroyed = currentThread;
 
 
@@ -223,7 +223,7 @@ public class KThread {
     public static void yield() {
 	Lib.debug(dbgThread, "Yielding thread: " + currentThread.toString());
 	
-	Lib.assert(currentThread.status == statusRunning);
+	Lib.assertTrue(currentThread.status == statusRunning);
 	
 	boolean intStatus = Machine.interrupt().disable();
 
@@ -248,7 +248,7 @@ public class KThread {
     public static void sleep() {
 	Lib.debug(dbgThread, "Sleeping thread: " + currentThread.toString());
 	
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
 
 	if (currentThread.status != statusFinished)
 	    currentThread.status = statusBlocked;
@@ -263,8 +263,8 @@ public class KThread {
     public void ready() {
 	Lib.debug(dbgThread, "Ready thread: " + toString());
 	
-	Lib.assert(Machine.interrupt().disabled());
-	Lib.assert(status != statusReady);
+	Lib.assertTrue(Machine.interrupt().disabled());
+	Lib.assertTrue(status != statusReady);
 	
 	status = statusReady;
 	if (this != idleThread)
@@ -320,7 +320,7 @@ public class KThread {
      * Note that <tt>ready()</tt> never adds the idle thread to the ready set.
      */
     private static void createIdleThread() {
-	Lib.assert(idleThread == null);
+	Lib.assertTrue(idleThread == null);
 	
 	idleThread = new KThread(new Runnable() {
 	    public void run() { while (true) yield(); }
@@ -365,7 +365,7 @@ public class KThread {
      *				thread.
      */
     private void run() {
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
 
 	Machine.yield();
 
@@ -400,9 +400,9 @@ public class KThread {
     protected void restoreState() {
 	Lib.debug(dbgThread, "Running thread: " + currentThread.toString());
 	
-	Lib.assert(Machine.interrupt().disabled());
-	Lib.assert(this == currentThread);
-	Lib.assert(tcb == TCB.currentTCB());
+	Lib.assertTrue(Machine.interrupt().disabled());
+	Lib.assertTrue(this == currentThread);
+	Lib.assertTrue(tcb == TCB.currentTCB());
 
 	Machine.autoGrader().runningThread(this);
 	
@@ -420,8 +420,8 @@ public class KThread {
      * need to do anything here.
      */
     protected void saveState() {
-	Lib.assert(Machine.interrupt().disabled());
-	Lib.assert(this == currentThread);
+	Lib.assertTrue(Machine.interrupt().disabled());
+	Lib.assertTrue(this == currentThread);
     }
 
     private static class PingTest implements Runnable {

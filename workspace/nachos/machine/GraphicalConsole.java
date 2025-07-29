@@ -97,7 +97,7 @@ public final class GraphicalConsole implements SerialConsole {
     }
 
     private void receiveInterrupt() {
-	Lib.assert(incomingKey == -1);
+	Lib.assertTrue(incomingKey == -1);
 
 	synchronized(incomingQueue) {
 	    if (incomingQueue.isEmpty()) {
@@ -131,7 +131,7 @@ public final class GraphicalConsole implements SerialConsole {
     }
 
     private void sendInterrupt() {
-	Lib.assert(outgoingKey != -1);
+	Lib.assertTrue(outgoingKey != -1);
 
 	Runnable send = new Runnable() {
 		public void run() {

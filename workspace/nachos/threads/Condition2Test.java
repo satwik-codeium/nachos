@@ -34,7 +34,7 @@ public class Condition2 {
      * automatically reacquire the lock before <tt>sleep()</tt> returns.
      */
     public void sleep() {
-        Lib.assert(conditionLock.isHeldByCurrentThread());
+        Lib.assertTrue(conditionLock.isHeldByCurrentThread());
 
         boolean intStatus = Machine.interrupt().disable();
         conditionLock.release();
@@ -51,7 +51,7 @@ public class Condition2 {
      * current thread must hold the associated lock.
      */
     public void wake() {
-        Lib.assert(conditionLock.isHeldByCurrentThread());
+        Lib.assertTrue(conditionLock.isHeldByCurrentThread());
 
         boolean intStatus = Machine.interrupt().disable();
         if (!waitQueue.isEmpty()) {
@@ -66,7 +66,7 @@ public class Condition2 {
      * thread must hold the associated lock.
      */
     public void wakeAll() {
-        Lib.assert(conditionLock.isHeldByCurrentThread());
+        Lib.assertTrue(conditionLock.isHeldByCurrentThread());
 
         boolean intStatus = Machine.interrupt().disable();
         while (!waitQueue.isEmpty()) {

@@ -54,7 +54,7 @@ public class PostOffice {
      * @return	the message received.
      */
     public MailMessage receive(int port) {
-	Lib.assert(port >= 0 && port < queues.length);
+	Lib.assertTrue(port >= 0 && port < queues.length);
 
 	Lib.debug(dbgNet, "waiting for mail on port " + port);
 

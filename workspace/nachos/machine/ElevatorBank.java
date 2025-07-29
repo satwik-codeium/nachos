@@ -47,7 +47,7 @@ public final class ElevatorBank implements Runnable {
      */
     public void init(int numElevators, int numFloors,
 		     ElevatorControllerInterface controller) {
-	Lib.assert(!simulationStarted);
+	Lib.assertTrue(!simulationStarted);
 	
 	this.numElevators = numElevators;
 	this.numFloors = numFloors;
@@ -77,7 +77,7 @@ public final class ElevatorBank implements Runnable {
      */
     public RiderControls addRider(RiderInterface rider,
 				  int floor, int[] stops) {
-	Lib.assert(!simulationStarted);
+	Lib.assertTrue(!simulationStarted);
 	
 	RiderControls controls = new RiderState(rider, floor, stops);
 	ridersVector.addElement(controls);
@@ -89,8 +89,8 @@ public final class ElevatorBank implements Runnable {
      * Create a GUI for this elevator bank.
      */
     public void enableGui() {
-	Lib.assert(!simulationStarted);
-	Lib.assert(Config.getBoolean("ElevatorBank.allowElevatorGUI"));
+	Lib.assertTrue(!simulationStarted);
+	Lib.assertTrue(Config.getBoolean("ElevatorBank.allowElevatorGUI"));
 
 	enableGui = true;
     }
@@ -101,7 +101,7 @@ public final class ElevatorBank implements Runnable {
      * simulation is finished.
      */
     public void run() {
-	Lib.assert(!simulationStarted);
+	Lib.assertTrue(!simulationStarted);
 	simulationStarted = true;
 	
 	riders = new RiderState[numRiders];
@@ -149,7 +149,7 @@ public final class ElevatorBank implements Runnable {
     void postRiderEvent(int event, int floor, int elevator) {
 	int direction = dirNeither;
 	if (elevator != -1) {
-	    Lib.assert(elevator >= 0 && elevator < numElevators);
+	    Lib.assertTrue(elevator >= 0 && elevator < numElevators);
 	    direction = elevators[elevator].direction;
 	}
 
@@ -184,7 +184,7 @@ public final class ElevatorBank implements Runnable {
 	}
 	
 	public void openDoors(int elevator) {
-	    Lib.assert(elevator >= 0 && elevator < numElevators);
+	    Lib.assertTrue(elevator >= 0 && elevator < numElevators);
 	    postRiderEvent(RiderEvent.eventDoorsOpened,
 			   elevators[elevator].openDoors(), elevator);
 
@@ -199,7 +199,7 @@ public final class ElevatorBank implements Runnable {
 	}
 			   
         public void closeDoors(int elevator) {
-	    Lib.assert(elevator >= 0 && elevator < numElevators);
+	    Lib.assertTrue(elevator >= 0 && elevator < numElevators);
 	    postRiderEvent(RiderEvent.eventDoorsClosed,
 			   elevators[elevator].closeDoors(), elevator);
 
@@ -208,8 +208,8 @@ public final class ElevatorBank implements Runnable {
 	}
 
 	public boolean moveTo(int floor, int elevator) {
-	    Lib.assert(floor >= 0 && floor < numFloors);
-	    Lib.assert(elevator >= 0 && elevator < numElevators);
+	    Lib.assertTrue(floor >= 0 && floor < numFloors);
+	    Lib.assertTrue(elevator >= 0 && elevator < numElevators);
 
 	    if (!elevators[elevator].moveTo(floor))
 		return false;
@@ -219,12 +219,12 @@ public final class ElevatorBank implements Runnable {
 	}
 	
 	public int getFloor(int elevator) {
-	    Lib.assert(elevator >= 0 && elevator < numElevators);
+	    Lib.assertTrue(elevator >= 0 && elevator < numElevators);
 	    return elevators[elevator].floor;
 	}
 	
 	public void setDirectionDisplay(int elevator, int direction) {
-	    Lib.assert(elevator >= 0 && elevator < numElevators);
+	    Lib.assertTrue(elevator >= 0 && elevator < numElevators);
 	    elevators[elevator].direction = direction;
 
 	    if (elevators[elevator].doorsOpen) {
@@ -247,7 +247,7 @@ public final class ElevatorBank implements Runnable {
 	public void finish() {
 	    finished = true;
 	    
-	    Lib.assert(KThread.currentThread() == thread);
+	    Lib.assertTrue(KThread.currentThread() == thread);
 	    
 	    done.V();
 	    KThread.finish();
@@ -326,19 +326,19 @@ public final class ElevatorBank implements Runnable {
 	}
 
 	int openDoors() {
-	    Lib.assert(!doorsOpen && !moving);
+	    Lib.assertTrue(!doorsOpen && !moving);
 	    doorsOpen = true;
 	    return floor;
 	}
 
 	int closeDoors() {
-	    Lib.assert(doorsOpen);
+	    Lib.assertTrue(doorsOpen);
 	    doorsOpen = false;
 	    return floor;
 	}
 
 	boolean moveTo(int newDestination) {
-	    Lib.assert(!doorsOpen);
+	    Lib.assertTrue(!doorsOpen);
 
 	    if (!moving) {
 		// can't move to current floor
@@ -353,7 +353,7 @@ public final class ElevatorBank implements Runnable {
 	    }
 	    else {
 		// moving, shouldn't be at destination
-		Lib.assert(floor != destination);
+		Lib.assertTrue(floor != destination);
 
 		// make sure it's ok to stop
 		if ((destination > floor && newDestination <= floor) ||
@@ -366,7 +366,7 @@ public final class ElevatorBank implements Runnable {
 	}
 
 	boolean enter(RiderState rider, int onFloor) {
-	    Lib.assert(!riders.contains(rider));
+	    Lib.assertTrue(!riders.contains(rider));
 	    
 	    if (!doorsOpen || moving || onFloor != floor ||
 		riders.size() == maxRiders)
@@ -377,7 +377,7 @@ public final class ElevatorBank implements Runnable {
 	}
 
 	boolean exit(RiderState rider, int onFloor) {
-	    Lib.assert(riders.contains(rider));
+	    Lib.assertTrue(riders.contains(rider));
 	    
 	    if (!doorsOpen || moving || onFloor != floor)
 		return false;
@@ -390,7 +390,7 @@ public final class ElevatorBank implements Runnable {
 	    if (!moving || Machine.timer().getTime() > nextETA)
 		return false;
 
-	    Lib.assert(destination != floor);
+	    Lib.assertTrue(destination != floor);
 	    if (destination > floor)
 		floor++;
 	    else
@@ -457,7 +457,7 @@ public final class ElevatorBank implements Runnable {
 	}
 	
 	public int getDirectionDisplay(int elevator) {
-	    Lib.assert(elevator >= 0 && elevator < numElevators);
+	    Lib.assertTrue(elevator >= 0 && elevator < numElevators);
 	    return elevators[elevator].direction;
 	}
 	
@@ -476,7 +476,7 @@ public final class ElevatorBank implements Runnable {
 	}
 	
 	public boolean pressUpButton() {
-	    Lib.assert(!inElevator && floor < numFloors-1);
+	    Lib.assertTrue(!inElevator && floor < numFloors-1);
 
 	    for (int elevator=0; elevator<numElevators; elevator++) {
 		if (elevators[elevator].doorsOpen &&
@@ -495,7 +495,7 @@ public final class ElevatorBank implements Runnable {
 	}
 	
 	public boolean pressDownButton() {
-	    Lib.assert(!inElevator && floor > 0);
+	    Lib.assertTrue(!inElevator && floor > 0);
 	    
 	    for (int elevator=0; elevator<numElevators; elevator++) {
 		if (elevators[elevator].doorsOpen &&
@@ -514,7 +514,7 @@ public final class ElevatorBank implements Runnable {
 	}
 	
 	public boolean enterElevator(int elevator) {
-	    Lib.assert(!inElevator &&
+	    Lib.assertTrue(!inElevator &&
 		       elevator >= 0 && elevator < numElevators);	    
 	    if (!elevators[elevator].enter(this, floor))
 		return false;
@@ -528,7 +528,7 @@ public final class ElevatorBank implements Runnable {
 	}
 	
 	public boolean pressFloorButton(int floor) {
-	    Lib.assert(inElevator && floor >= 0 && floor < numFloors);
+	    Lib.assertTrue(inElevator && floor >= 0 && floor < numFloors);
 
 	    if (elevators[elevator].doorsOpen &&
 		elevators[elevator].floor == floor)
@@ -544,7 +544,7 @@ public final class ElevatorBank implements Runnable {
 	}
 	    
 	public boolean exitElevator(int floor) {
-	    Lib.assert(inElevator && floor >= 0 && floor < numFloors);
+	    Lib.assertTrue(inElevator && floor >= 0 && floor < numFloors);
 
 	    if (!elevators[elevator].exit(this, floor))
 		return false;
@@ -562,11 +562,11 @@ public final class ElevatorBank implements Runnable {
 	    finished = true;
 	    
 	    int[] floors = getFloors();
-	    Lib.assert(floors.length == stops.length);
+	    Lib.assertTrue(floors.length == stops.length);
 	    for (int i=0; i<floors.length; i++)
-		Lib.assert(floors[i] == stops[i]);
+		Lib.assertTrue(floors[i] == stops[i]);
 	    
-	    Lib.assert(KThread.currentThread() == thread);
+	    Lib.assertTrue(KThread.currentThread() == thread);
 	    
 	    done.V();
 	    KThread.finish();

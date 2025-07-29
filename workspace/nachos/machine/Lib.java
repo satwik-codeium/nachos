@@ -33,7 +33,7 @@ public final class Lib {
      * @param	seed	the seed for the random number generator.
      */
     public static void seedRandom(long randomSeed) {
-	assert(random == null);
+	assertTrue(random == null);
 	random = new Random(randomSeed);
     }
     
@@ -46,7 +46,7 @@ public final class Lib {
      * @return	a random integer in the specified range.
      */
     public static int random(int range) {
-	assert(range > 0);
+	assertTrue(range > 0);
 	return random.nextInt(range);
     }
 
@@ -63,16 +63,16 @@ public final class Lib {
      * Asserts that <i>expression</i> is <tt>true</tt>. If not, then Nachos
      * exits with an error message.
      */     
-    public static void assert(boolean expression) {
+    public static void assertTrue(boolean expression) {
 	if (!expression)
 	    throw new AssertionFailureError();
     }
 
     /**
-     * Asserts that this call is never made. Same as <tt>assert(false)</tt>.
+     * Asserts that this call is never made. Same as <tt>assertTrue(false)</tt>.
      */
     public static void assertNotReached() {
-	assert(false);
+	assertTrue(false);
     }
     
     /**
@@ -146,9 +146,9 @@ public final class Lib {
     public static void strictReadFile(OpenFile file, int position,
 				      byte[] buf, int offset, int length) {
 	long startTime = Machine.timer().getTime();
-	assert(file.read(position, buf, offset, length) == length);
+	assertTrue(file.read(position, buf, offset, length) == length);
 	long finishTime = Machine.timer().getTime();
-	assert(finishTime>startTime);	
+	assertTrue(finishTime>startTime);	
     }
 
     /**
@@ -241,7 +241,7 @@ public final class Lib {
      */
     public static void bytesFromInt(byte[] array, int offset,
 				    int length, int value) {
-	assert(length==1 || length==2 || length==4);
+	assertTrue(length==1 || length==2 || length==4);
 
 	switch (length) {
 	case 1:
@@ -304,7 +304,7 @@ public final class Lib {
      * @return	the corresponding value.
      */
     public static int bytesToInt(byte[] array, int offset, int length) {
-	assert(length==1 || length==2 || length==4);
+	assertTrue(length==1 || length==2 || length==4);
 
 	switch (length) {
 	case 1:
@@ -422,7 +422,7 @@ public final class Lib {
      * @return	<tt>ceiling(a / b)</tt>.
      */
     public static int divRoundUp(int a, int b) {
-	assert(a >= 0 && b > 0);
+	assertTrue(a >= 0 && b > 0);
 
 	return ((a + (b-1)) / b);	
     }

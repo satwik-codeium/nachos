@@ -30,7 +30,7 @@ public class AutoGrader {
      * @param	args		the command line arguments to Nachos.
      */
     public void start(Privilege privilege, String[] args) {
-	Lib.assert(this.privilege == null);
+	Lib.assertTrue(this.privilege == null);
 	this.privilege = privilege;
 
 	extractArguments(args);
@@ -55,7 +55,7 @@ public class AutoGrader {
 	    String arg = args[i++];
 	    if (arg.length() > 0 && arg.charAt(0) == '-') {
 		if (arg.equals("-#")) {
-		    Lib.assert(i < args.length);
+		    Lib.assertTrue(i < args.length);
 		    testArgsString = args[i++];
 		}
 	    }
@@ -66,10 +66,10 @@ public class AutoGrader {
 	while (st.hasMoreTokens()) {
 	    StringTokenizer pair = new StringTokenizer(st.nextToken(), "=");
 
-	    Lib.assert(pair.hasMoreTokens());
+	    Lib.assertTrue(pair.hasMoreTokens());
 	    String key = pair.nextToken();
 
-	    Lib.assert(pair.hasMoreTokens());
+	    Lib.assertTrue(pair.hasMoreTokens());
 	    String value = pair.nextToken();
 
 	    testArgs.put(key, value);
@@ -78,7 +78,7 @@ public class AutoGrader {
 
     String getStringArgument(String key) {
 	String value = (String) testArgs.get(key);
-	Lib.assert(value != null);
+	Lib.assertTrue(value != null);
 	return value;
     }
 
@@ -117,7 +117,7 @@ public class AutoGrader {
 
     void level(int level) {
 	this.level++;	
-	Lib.assert(level == this.level);
+	Lib.assertTrue(level == this.level);
 	
 	if (level == targetLevel)
 	    done();
@@ -195,7 +195,7 @@ public class AutoGrader {
      *			issued.
      */
     public void timerInterrupt(Privilege privilege, long time) {
-	Lib.assert(privilege == this.privilege);
+	Lib.assertTrue(privilege == this.privilege);
     }
 
     /**
@@ -206,7 +206,7 @@ public class AutoGrader {
      * @return	<tt>true</tt> if the kernel exception handler should be called.
      */
     public boolean exceptionHandler(Privilege privilege) {
-	Lib.assert(privilege == this.privilege);
+	Lib.assertTrue(privilege == this.privilege);
 	return true;
     }
 

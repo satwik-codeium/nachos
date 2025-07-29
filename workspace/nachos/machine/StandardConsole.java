@@ -87,7 +87,7 @@ public class StandardConsole implements SerialConsole {
 
 
     private void receiveInterrupt() {
-	Lib.assert(incomingKey == -1);
+	Lib.assertTrue(incomingKey == -1);
 
 	incomingKey = translateCharacter(in());
 	if (incomingKey == -1) {
@@ -128,7 +128,7 @@ public class StandardConsole implements SerialConsole {
     }	
 
     private void sendInterrupt() {
-	Lib.assert(outgoingKey != -1);
+	Lib.assertTrue(outgoingKey != -1);
 
 	out(outgoingKey);
 	outgoingKey = -1;

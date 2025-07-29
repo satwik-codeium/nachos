@@ -21,7 +21,7 @@ public class CoffSection {
     public CoffSection(OpenFile file, int headerOffset) throws EOFException {
 	this.file = file;
 
-	Lib.assert(headerOffset >= 0);
+	Lib.assertTrue(headerOffset >= 0);
 	if (headerOffset+headerLength > file.length()) {
 	    Lib.debug(dbgCoffSection, "\tsection header truncated");
 	    throw new EOFException();
@@ -86,7 +86,7 @@ public class CoffSection {
      * @return	the name of this section.
      */
     public String getName() {
-	Lib.assert(file != null);
+	Lib.assertTrue(file != null);
 	
 	return name;
     }
@@ -97,7 +97,7 @@ public class CoffSection {
      * @return	<tt>true</tt> if this section should never be written.
      */
     public boolean isReadOnly() {
-	Lib.assert(file != null);
+	Lib.assertTrue(file != null);
 	
 	return readOnly;
     }
@@ -111,7 +111,7 @@ public class CoffSection {
      *		executable.
      */
     public boolean isInitialzed() {
-	Lib.assert(file != null);
+	Lib.assertTrue(file != null);
 	
 	return initialized;
     }
@@ -122,7 +122,7 @@ public class CoffSection {
      * @return	the number of pages in this section.
      */
     public int getLength() {
-	Lib.assert(file != null);
+	Lib.assertTrue(file != null);
 	
 	return numPages;
     }
@@ -133,7 +133,7 @@ public class CoffSection {
      * @return	the first virtual page number used by this section.
      */
     public int getFirstVPN() {
-	Lib.assert(file != null);
+	Lib.assertTrue(file != null);
 	
 	return firstVPN;
     }
@@ -146,10 +146,10 @@ public class CoffSection {
      * @return	<tt>true</tt> if successful.
      */
     public void loadPage(int spn, int ppn) {
-	Lib.assert(file != null);
+	Lib.assertTrue(file != null);
 	
-	Lib.assert(spn>=0 && spn<numPages);
-	Lib.assert(ppn>=0 && ppn<Machine.processor().getNumPhysPages());
+	Lib.assertTrue(spn>=0 && spn<numPages);
+	Lib.assertTrue(ppn>=0 && ppn<Machine.processor().getNumPhysPages());
 	    
 	int pageSize = Processor.pageSize;
 	byte[] memory = Machine.processor().getMemory();

@@ -92,7 +92,7 @@ public final class Coff {
      * @return	an object that can be used to access the specified section.
      */
     public CoffSection getSection(int sectionNumber) {
-	Lib.assert(sectionNumber >= 0 && sectionNumber < sections.length);
+	Lib.assertTrue(sectionNumber >= 0 && sectionNumber < sections.length);
 
 	return sections[sectionNumber];
     }
@@ -104,7 +104,7 @@ public final class Coff {
      * @return	the program entry point.
      */
     public int getEntryPoint() {
-	Lib.assert(file != null);
+	Lib.assertTrue(file != null);
 	
 	return entryPoint;
     }

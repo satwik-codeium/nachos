@@ -87,7 +87,7 @@ public class UserProcess {
      *		found.
      */
     public String readVirtualMemoryString(int vaddr, int maxLength) {
-	Lib.assert(maxLength >= 0);
+	Lib.assertTrue(maxLength >= 0);
 
 	byte[] bytes = new byte[maxLength+1];
 
@@ -129,7 +129,7 @@ public class UserProcess {
      */
     public int readVirtualMemory(int vaddr, byte[] data, int offset,
 				 int length) {
-	Lib.assert(offset >= 0 && length >= 0 && offset+length <= data.length);
+	Lib.assertTrue(offset >= 0 && length >= 0 && offset+length <= data.length);
 
 	byte[] memory = Machine.processor().getMemory();
 	
@@ -172,7 +172,7 @@ public class UserProcess {
      */
     public int writeVirtualMemory(int vaddr, byte[] data, int offset,
 				  int length) {
-	Lib.assert(offset >= 0 && length >= 0 && offset+length <= data.length);
+	Lib.assertTrue(offset >= 0 && length >= 0 && offset+length <= data.length);
 
 	byte[] memory = Machine.processor().getMemory();
 	
@@ -262,12 +262,12 @@ public class UserProcess {
 	
 	for (int i=0; i<argv.length; i++) {
 	    byte[] stringOffsetBytes = Lib.bytesFromInt(stringOffset);
-	    Lib.assert(writeVirtualMemory(entryOffset,stringOffsetBytes) == 4);
+	    Lib.assertTrue(writeVirtualMemory(entryOffset,stringOffsetBytes) == 4);
 	    entryOffset += 4;
-	    Lib.assert(writeVirtualMemory(stringOffset, argv[i]) ==
+	    Lib.assertTrue(writeVirtualMemory(stringOffset, argv[i]) ==
 		       argv[i].length);
 	    stringOffset += argv[i].length;
-	    Lib.assert(writeVirtualMemory(stringOffset,new byte[] { 0 }) == 1);
+	    Lib.assertTrue(writeVirtualMemory(stringOffset,new byte[] { 0 }) == 1);
 	    stringOffset += 1;
 	}
 

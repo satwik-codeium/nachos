@@ -60,7 +60,7 @@ public abstract class Scheduler {
      * @return	the thread's priority.
      */
     public int getPriority(KThread thread) {
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
 	return 0;
     }
 
@@ -96,7 +96,7 @@ public abstract class Scheduler {
      * @return	the thread's effective priority.
      */
     public int getEffectivePriority(KThread thread) {
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
 	return 0;
     }
 
@@ -118,7 +118,7 @@ public abstract class Scheduler {
      * @param	priority	the new priority.
      */
     public void setPriority(KThread thread, int priority) {
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
     }
 
     /**

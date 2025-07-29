@@ -24,7 +24,7 @@ public class ArrayFile extends OpenFileWithPosition {
     }
 
     public int read(int position, byte[] buf, int offset, int length) {
-	Lib.assert(offset >= 0 && length >= 0 && offset+length <= buf.length);
+	Lib.assertTrue(offset >= 0 && length >= 0 && offset+length <= buf.length);
 	
 	if (position < 0 || position >= array.length)
 	    return 0;

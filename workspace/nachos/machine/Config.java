@@ -22,7 +22,7 @@ public final class Config {
     public static void load(String fileName) {
 	System.out.print(" config");
 	
-	Lib.assert(!loaded);
+	Lib.assertTrue(!loaded);
 	loaded = true;
 	
 	configFile = fileName;

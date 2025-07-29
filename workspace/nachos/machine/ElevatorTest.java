@@ -44,31 +44,31 @@ public final class ElevatorTest {
 	public void run() {
 	    ElevatorEvent e;
 
-	    Lib.assert(controls.getFloor(0) == 0);
+	    Lib.assertTrue(controls.getFloor(0) == 0);
 	    
 	    e = getNextEvent();
-	    Lib.assert(e.event == ElevatorEvent.eventUpButtonPressed &&
+	    Lib.assertTrue(e.event == ElevatorEvent.eventUpButtonPressed &&
 		       e.floor == 0);
 
 	    controls.setDirectionDisplay(0, dirUp);
 	    controls.openDoors(0);
 
 	    e = getNextEvent();
-	    Lib.assert(e.event == ElevatorEvent.eventFloorButtonPressed &&
+	    Lib.assertTrue(e.event == ElevatorEvent.eventFloorButtonPressed &&
 		       e.floor == 1);
 
 	    controls.closeDoors(0);
 	    controls.moveTo(1, 0);
 
 	    e = getNextEvent();
-	    Lib.assert(e.event == ElevatorEvent.eventElevatorArrived &&
+	    Lib.assertTrue(e.event == ElevatorEvent.eventElevatorArrived &&
 		       e.floor == 1 &&
 		       e.elevator == 0);
 
 	    controls.openDoors(0);
 
 	    e = getNextEvent();
-	    Lib.assert(e.event == ElevatorEvent.eventRidersDone);
+	    Lib.assertTrue(e.event == ElevatorEvent.eventRidersDone);
 
 	    controls.finish();
 	    Lib.assertNotReached();
@@ -96,7 +96,7 @@ public final class ElevatorTest {
     private class Rider implements RiderInterface {
 	public void initialize(RiderControls controls, int[] stops) {
 	    this.controls = controls;
-	    Lib.assert(stops.length == 1 && stops[0] == 1);
+	    Lib.assertTrue(stops.length == 1 && stops[0] == 1);
 
 	    eventWait = new Semaphore(0);
 
@@ -108,30 +108,30 @@ public final class ElevatorTest {
 	public void run() {
 	    RiderEvent e;
 
-	    Lib.assert(controls.getFloor() == 0);
+	    Lib.assertTrue(controls.getFloor() == 0);
 
 	    controls.pressUpButton();
 
 	    e = getNextEvent();
-	    Lib.assert(e.event == RiderEvent.eventDoorsOpened &&
+	    Lib.assertTrue(e.event == RiderEvent.eventDoorsOpened &&
 		       e.floor == 0 &&
 		       e.elevator == 0);
-	    Lib.assert(controls.getDirectionDisplay(0) == dirUp);
+	    Lib.assertTrue(controls.getDirectionDisplay(0) == dirUp);
 
-	    Lib.assert(controls.enterElevator(0));
+	    Lib.assertTrue(controls.enterElevator(0));
 	    controls.pressFloorButton(1);
 
 	    e = getNextEvent();
-	    Lib.assert(e.event == RiderEvent.eventDoorsClosed &&
+	    Lib.assertTrue(e.event == RiderEvent.eventDoorsClosed &&
 		       e.floor == 0 &&
 		       e.elevator == 0);
 
 	    e = getNextEvent();
-	    Lib.assert(e.event == RiderEvent.eventDoorsOpened &&
+	    Lib.assertTrue(e.event == RiderEvent.eventDoorsOpened &&
 		       e.floor == 1 &&
 		       e.elevator == 0);
 
-	    Lib.assert(controls.exitElevator(1));
+	    Lib.assertTrue(controls.exitElevator(1));
 
 	    controls.finish();
 	    Lib.assertNotReached();
@@ -155,4 +155,4 @@ public final class ElevatorTest {
 	private RiderControls controls;
 	private Semaphore eventWait;
     }
-}    
+}        

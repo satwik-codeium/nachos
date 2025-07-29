@@ -68,7 +68,7 @@ public class StubFileSystem implements FileSystem {
 	long time = Machine.timer().getTime();
 	int amount = 1000;
 	ThreadedKernel.alarm.waitUntil(amount);
-	Lib.assert(Machine.timer().getTime() >= time+amount);
+	Lib.assertTrue(Machine.timer().getTime() >= time+amount);
     }
 
     private class StubOpenFile extends OpenFileWithPosition {

@@ -24,7 +24,7 @@ public class SynchList {
      * @param	o	the object to add. Must not be <tt>null</tt>.
      */
     public void add(Object o) {
-	Lib.assert(o != null);
+	Lib.assertTrue(o != null);
 	
 	lock.acquire();
 	list.add(o);
@@ -77,7 +77,7 @@ public class SynchList {
 	for (int i=0; i<10; i++) {
 	    Integer o = new Integer(i);
 	    ping.add(o);
-	    Lib.assert(pong.removeFirst() == o);
+	    Lib.assertTrue(pong.removeFirst() == o);
 	}
     }
 

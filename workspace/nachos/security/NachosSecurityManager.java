@@ -36,7 +36,7 @@ public class NachosSecurityManager extends SecurityManager {
      * @return	a privilege object for this security manager.
      */
     public Privilege getPrivilege() {
-	Lib.assert(this != System.getSecurityManager());
+	Lib.assertTrue(this != System.getSecurityManager());
 
 	return new PrivilegeProvider();
     }
@@ -45,7 +45,7 @@ public class NachosSecurityManager extends SecurityManager {
      * Install this security manager.
      */
     public void enable() {
-	Lib.assert(this != System.getSecurityManager());
+	Lib.assertTrue(this != System.getSecurityManager());
 	
 	doPrivileged(new Runnable() {
 	    public void run() {
@@ -75,12 +75,12 @@ public class NachosSecurityManager extends SecurityManager {
 
     private void enablePrivilege() {
 	if (privilegeCount == 0) {
-	    Lib.assert(privileged == null);
+	    Lib.assertTrue(privileged == null);
 	    privileged = Thread.currentThread();
 	    privilegeCount++;
 	}
 	else {
-	    Lib.assert(privileged == Thread.currentThread());
+	    Lib.assertTrue(privileged == Thread.currentThread());
 	    privilegeCount++;
 	}
     }
@@ -97,7 +97,7 @@ public class NachosSecurityManager extends SecurityManager {
     }
 
     private void disablePrivilege() {
-	Lib.assert(privileged != null && privilegeCount > 0);
+	Lib.assertTrue(privileged != null && privilegeCount > 0);
 	privilegeCount--;
 	if (privilegeCount == 0)
 	    privileged = null;

@@ -121,7 +121,7 @@ public final class Interrupt {
     }
 
     private void schedule(long when, String type, Runnable handler) {
-	Lib.assert(when>0);
+	Lib.assertTrue(when>0);
 	
 	long time = privilege.stats.totalTicks + when;
 	PendingInterrupt toOccur = new PendingInterrupt(time, type, handler);
@@ -156,7 +156,7 @@ public final class Interrupt {
     private void checkIfDue() {
 	long time = privilege.stats.totalTicks;
 
-	Lib.assert(disabled());
+	Lib.assertTrue(disabled());
 
 	if (Lib.test(dbgInt))
 	    print();
@@ -174,7 +174,7 @@ public final class Interrupt {
 	    PendingInterrupt next = (PendingInterrupt) pending.first();
 	    pending.remove(next);
 
-	    Lib.assert(next.time <= time);
+	    Lib.assertTrue(next.time <= time);
 
 	    if (privilege.processor != null)
 		privilege.processor.flushPipe();

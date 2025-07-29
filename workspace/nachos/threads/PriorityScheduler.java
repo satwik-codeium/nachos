@@ -46,21 +46,21 @@ public class PriorityScheduler extends Scheduler {
     }
 
     public int getPriority(KThread thread) {
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
 		       
 	return getThreadState(thread).getPriority();
     }
 
     public int getEffectivePriority(KThread thread) {
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
 		       
 	return getThreadState(thread).getEffectivePriority();
     }
 
     public void setPriority(KThread thread, int priority) {
-	Lib.assert(Machine.interrupt().disabled());
+	Lib.assertTrue(Machine.interrupt().disabled());
 		       
-	Lib.assert(priority >= priorityMinimum &&
+	Lib.assertTrue(priority >= priorityMinimum &&
 		   priority <= priorityMaximum);
 	
 	getThreadState(thread).setPriority(priority);
@@ -131,17 +131,17 @@ public class PriorityScheduler extends Scheduler {
 	}
 
 	public void waitForAccess(KThread thread) {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 	    getThreadState(thread).waitForAccess(this);
 	}
 
 	public void acquire(KThread thread) {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 	    getThreadState(thread).acquire(this);
 	}
 
 	public KThread nextThread() {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 	    ThreadState state = pickNextThread();
 	    if (state == null) return null;
 	    state.acquire(this);
@@ -166,7 +166,7 @@ public class PriorityScheduler extends Scheduler {
 	}
 	
 	public void print() {
-	    Lib.assert(Machine.interrupt().disabled());
+	    Lib.assertTrue(Machine.interrupt().disabled());
 	    // implement me (if you want)
 	}
 

@@ -75,7 +75,7 @@ public class UserKernel extends ThreadedKernel {
      * that caused the exception.
      */
     public void exceptionHandler() {
-	Lib.assert(KThread.currentThread() instanceof UThread);
+	Lib.assertTrue(KThread.currentThread() instanceof UThread);
 
 	UserProcess process = ((UThread) KThread.currentThread()).process;
 	int cause = Machine.processor().readRegister(Processor.regCause);
@@ -95,7 +95,7 @@ public class UserKernel extends ThreadedKernel {
 	UserProcess process = UserProcess.newUserProcess();
 	
 	String shellProgram = Machine.getShellProgramName();	
-	Lib.assert(process.execute(shellProgram, new String[] { }));
+	Lib.assertTrue(process.execute(shellProgram, new String[] { }));
 
 	KThread.currentThread().finish();
     }

@@ -20,7 +20,7 @@ public final class Machine {
     public static void main(final String[] args) {
 	System.out.print("nachos 5.0j initializing...");
 	
-	Lib.assert(Machine.args == null);
+	Lib.assertTrue(Machine.args == null);
 	Machine.args = args;
 
 	// get the current directory (.)
@@ -95,7 +95,7 @@ public final class Machine {
 	    String arg = args[i++];
 	    if (arg.length() > 0 && arg.charAt(0) == '-') {
 		if (arg.equals("-d")) {
-		    Lib.assert(i < args.length);
+		    Lib.assertTrue(i < args.length);
 		    Lib.enableDebugFlags(args[i++]);
 		}
 		else if (arg.equals("-h")) {
@@ -103,7 +103,7 @@ public final class Machine {
 		    System.exit(1);
 		}
 		else if (arg.equals("-s")) {
-		    Lib.assert(i < args.length);
+		    Lib.assertTrue(i < args.length);
 		    try {
 			randomSeed = Long.parseLong(args[i++]);
 		    }
@@ -112,7 +112,7 @@ public final class Machine {
 		    }
 		}
 		else if (arg.equals("-x")) {
-		    Lib.assert(i < args.length);
+		    Lib.assertTrue(i < args.length);
 		    shellProgramName = args[i++];		    
 		}		    
 		else if (arg.equals("-z")) {
@@ -121,11 +121,11 @@ public final class Machine {
 		}
 		// these switches are reserved for the autograder
 		else if (arg.equals("-[]")) {
-		    Lib.assert(i < args.length);
+		    Lib.assertTrue(i < args.length);
 		    configFileName = args[i++];
 		}
 		else if (arg.equals("--")) {
-		    Lib.assert(i < args.length);
+		    Lib.assertTrue(i < args.length);
 		    autoGraderClassName = args[i++];
 		}
 	    }
@@ -340,7 +340,7 @@ public final class Machine {
 	if (shellProgramName == null)
 	    shellProgramName = Config.getString("Kernel.shellProgram");
 
-	Lib.assert(shellProgramName != null);
+	Lib.assertTrue(shellProgramName != null);
 	return shellProgramName;
     }
 
@@ -364,7 +364,7 @@ public final class Machine {
 	if (processClassName == null)
 	    processClassName = Config.getString("Kernel.processClassName");
 
-	Lib.assert(processClassName != null);
+	Lib.assertTrue(processClassName != null);
 	return processClassName;
     }
 

@@ -14,7 +14,7 @@ public abstract class Kernel {
      */
     public Kernel() {
 	// make sure only one kernel is created
-	Lib.assert(kernel == null);	
+	Lib.assertTrue(kernel == null);	
 	kernel = this;
     }
 

@@ -33,7 +33,7 @@ public final class Lib {
      * @param	seed	the seed for the random number generator.
      */
     public static void seedRandom(long randomSeed) {
-	assert(random == null);
+	assertTrue(random == null);
 	random = new Random(randomSeed);
     }
     
@@ -46,7 +46,7 @@ public final class Lib {
      * @return	a random integer in the specified range.
      */
     public static int random(int range) {
-	assert(range > 0);
+	assertTrue(range > 0);
 	return random.nextInt(range);
     }
 
@@ -63,16 +63,16 @@ public final class Lib {
      * Asserts that <i>expression</i> is <tt>true</tt>. If not, then Nachos
      * exits with an error message.
      */     
-    public static void assert(boolean expression) {
+    public static void assertTrue(boolean expression) {
 	if (!expression)
 	    throw new AssertionFailureError();
     }
 
     /**
-     * Asserts that this call is never made. Same as <tt>assert(false)</tt>.
+     * Asserts that this call is never made. Same as <tt>assertTrue(false)</tt>.
      */
     public static void assertNotReached() {
-	assert(false);
+	assertTrue(false);
     }
     
     /**
@@ -146,9 +146,9 @@ public final class Lib {
     public static void strictReadFile(OpenFile file, int position,
 				      byte[] buf, int offset, int length) {
 	long startTime = Machine.timer().getTime();
-	assert(file.read(position, buf, offset, length) == length);
+	assertTrue(file.read(position, buf, offset, length) == length);
 	long finishTime = Machine.timer().getTime();
-	assert(finishTime>startTime);	
+	assertTrue(finishTime>startTime);	
     }
 
     /**
@@ -241,7 +241,7 @@ public final class Lib {
      */
     public static void bytesFromInt(byte[] array, int offset,
 				    int length, int value) {
-	assert(length==1 || length==2 || length==4);
+	assertTrue(length==1 || length==2 || length==4);
 
 	switch (length) {
 	case 1:
@@ -304,7 +304,7 @@ public final class Lib {
      * @return	the corresponding value.
      */
     public static int bytesToInt(byte[] array, int offset, int length) {
-	assert(length==1 || length==2 || length==4);
+	assertTrue(length==1 || length==2 || length==4);
 
 	switch (length) {
 	case 1:
@@ -422,7 +422,7 @@ public final class Lib {
      * @return	<tt>ceiling(a / b)</tt>.
      */
     public static int divRoundUp(int a, int b) {
-	assert(a >= 0 && b > 0);
+	assertTrue(a >= 0 && b > 0);
 
 	return ((a + (b-1)) / b);	
     }
@@ -471,7 +471,7 @@ public final class Lib {
      * @param	superName	the ancestor class.
      */
     public static void checkDerivation(Class cls, Class superCls) {
-	Lib.assert(superCls.isAssignableFrom(cls));
+	Lib.assertTrue(superCls.isAssignableFrom(cls));
     }
 
     /**
@@ -483,10 +483,10 @@ public final class Lib {
      */
     public static void checkConstructor(Class cls, Class[] parameterTypes) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()) &&
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()) &&
 		       !Modifier.isAbstract(cls.getModifiers()));
 	    Constructor constructor = cls.getConstructor(parameterTypes);
-	    Lib.assert(Modifier.isPublic(constructor.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(constructor.getModifiers()));
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
@@ -506,11 +506,11 @@ public final class Lib {
     public static void checkMethod(Class cls, String methodName,
 				   Class[] parameterTypes, Class returnType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Method method = cls.getMethod(methodName, parameterTypes);
-	    Lib.assert(Modifier.isPublic(method.getModifiers()) &&
+	    Lib.assertTrue(Modifier.isPublic(method.getModifiers()) &&
 		       !Modifier.isStatic(method.getModifiers()));
-	    Lib.assert(method.getReturnType() == returnType);
+	    Lib.assertTrue(method.getReturnType() == returnType);
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
@@ -531,11 +531,11 @@ public final class Lib {
 					 Class[] parameterTypes,
 					 Class returnType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Method method = cls.getMethod(methodName, parameterTypes);
-	    Lib.assert(Modifier.isPublic(method.getModifiers()) &&
+	    Lib.assertTrue(Modifier.isPublic(method.getModifiers()) &&
 		       Modifier.isStatic(method.getModifiers()));
-	    Lib.assert(method.getReturnType() == returnType);
+	    Lib.assertTrue(method.getReturnType() == returnType);
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
@@ -553,16 +553,16 @@ public final class Lib {
     public static void checkField(Class cls, String fieldName,
 				  Class fieldType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Field field = cls.getField(fieldName);
-	    Lib.assert(field.getType() == fieldType);
-	    Lib.assert(Modifier.isPublic(field.getModifiers()) &&
+	    Lib.assertTrue(field.getType() == fieldType);
+	    Lib.assertTrue(Modifier.isPublic(field.getModifiers()) &&
 		       !Modifier.isStatic(field.getModifiers()) &&
 		       !Modifier.isFinal(field.getModifiers()));
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
-	}
+	}		       
     }
 
     /**
@@ -576,14 +576,14 @@ public final class Lib {
     public static void checkStaticField(Class cls, String fieldName,
 					Class fieldType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Field field = cls.getField(fieldName);
-	    Lib.assert(field.getType() == fieldType);
-	    Lib.assert(Modifier.isPublic(field.getModifiers()) &&
+	    Lib.assertTrue(field.getType() == fieldType);
+	    Lib.assertTrue(Modifier.isPublic(field.getModifiers()) &&
 		       Modifier.isStatic(field.getModifiers()));
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
-	}
+	}		       
     }
 }

@@ -165,7 +165,7 @@ public class KThread {
     private void runThread() {
 	begin();
 	target.run();
-	finish();
+	KThread.finish();
     }
 
     private void begin() {
@@ -300,7 +300,7 @@ public class KThread {
     /**
      * Called when the thread finishes its execution.
      */
-    private void finish() {
+    private void finishJoin() {
         joinLock.acquire();
         try {
             status = statusFinished;

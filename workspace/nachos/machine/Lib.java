@@ -471,7 +471,7 @@ public final class Lib {
      * @param	superName	the ancestor class.
      */
     public static void checkDerivation(Class cls, Class superCls) {
-	Lib.assert(superCls.isAssignableFrom(cls));
+	Lib.assertTrue(superCls.isAssignableFrom(cls));
     }
 
     /**
@@ -483,10 +483,10 @@ public final class Lib {
      */
     public static void checkConstructor(Class cls, Class[] parameterTypes) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()) &&
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()) &&
 		       !Modifier.isAbstract(cls.getModifiers()));
 	    Constructor constructor = cls.getConstructor(parameterTypes);
-	    Lib.assert(Modifier.isPublic(constructor.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(constructor.getModifiers()));
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
@@ -506,11 +506,11 @@ public final class Lib {
     public static void checkMethod(Class cls, String methodName,
 				   Class[] parameterTypes, Class returnType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Method method = cls.getMethod(methodName, parameterTypes);
-	    Lib.assert(Modifier.isPublic(method.getModifiers()) &&
+	    Lib.assertTrue(Modifier.isPublic(method.getModifiers()) &&
 		       !Modifier.isStatic(method.getModifiers()));
-	    Lib.assert(method.getReturnType() == returnType);
+	    Lib.assertTrue(method.getReturnType() == returnType);
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
@@ -531,11 +531,11 @@ public final class Lib {
 					 Class[] parameterTypes,
 					 Class returnType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Method method = cls.getMethod(methodName, parameterTypes);
-	    Lib.assert(Modifier.isPublic(method.getModifiers()) &&
+	    Lib.assertTrue(Modifier.isPublic(method.getModifiers()) &&
 		       Modifier.isStatic(method.getModifiers()));
-	    Lib.assert(method.getReturnType() == returnType);
+	    Lib.assertTrue(method.getReturnType() == returnType);
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
@@ -553,16 +553,16 @@ public final class Lib {
     public static void checkField(Class cls, String fieldName,
 				  Class fieldType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Field field = cls.getField(fieldName);
-	    Lib.assert(field.getType() == fieldType);
-	    Lib.assert(Modifier.isPublic(field.getModifiers()) &&
+	    Lib.assertTrue(field.getType() == fieldType);
+	    Lib.assertTrue(Modifier.isPublic(field.getModifiers()) &&
 		       !Modifier.isStatic(field.getModifiers()) &&
 		       !Modifier.isFinal(field.getModifiers()));
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
-	}
+	}		       
     }
 
     /**
@@ -576,14 +576,14 @@ public final class Lib {
     public static void checkStaticField(Class cls, String fieldName,
 					Class fieldType) {
 	try {
-	    Lib.assert(Modifier.isPublic(cls.getModifiers()));
+	    Lib.assertTrue(Modifier.isPublic(cls.getModifiers()));
 	    Field field = cls.getField(fieldName);
-	    Lib.assert(field.getType() == fieldType);
-	    Lib.assert(Modifier.isPublic(field.getModifiers()) &&
+	    Lib.assertTrue(field.getType() == fieldType);
+	    Lib.assertTrue(Modifier.isPublic(field.getModifiers()) &&
 		       Modifier.isStatic(field.getModifiers()));
 	}
 	catch (Exception e) {
 	    Lib.assertNotReached();
-	}
+	}		       
     }
 }

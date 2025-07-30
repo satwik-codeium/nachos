@@ -1,5 +1,5 @@
 JAVADOCPARAMS = -doctitle "Nachos 4.0 Java" -protected \
-		-link http://java.sun.com/products/jdk/1.2/docs/api
+		-link https://docs.oracle.com/javase/8/docs/api/
 
 machine =	Lib Config Stats Machine TCB \
 		Interrupt Timer \
@@ -39,7 +39,7 @@ CLASSFILES := $(foreach dir,$(DIRS),$(patsubst %,nachos/$(dir)/%.class,$($(dir))
 all: $(CLASSFILES)
 
 nachos/%.class: ../%.java
-	javac -classpath . -d . -sourcepath ../.. -g $<
+	javac -classpath . -d . -sourcepath ../.. -g -source 8 -target 8 $<
 
 clean:
 	rm -f */*/*.class

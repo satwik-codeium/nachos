@@ -17,11 +17,12 @@ Unpack it with these commands:
 
 Additional software:
 
-Nachos requires the Java Devlopment Kit, version 1.2 or later. This is
-installed on all instructional machines in:
-	/usr/sww/lang/jdk-1.2.2
-To use this version of the JDK, be sure that
-	/usr/sww/lang/jdk-1.2.2/bin
+Nachos requires the Java Development Kit, version 8 or later. For Java 8,
+you can use Oracle JDK 8 or OpenJDK 8. On macOS, you can install it via:
+	- Homebrew: brew install openjdk@8
+	- AdoptOpenJDK: Download from https://adoptopenjdk.net/
+To use Java 8, ensure your JAVA_HOME points to the Java 8 installation and
+that $JAVA_HOME/bin
 is on your PATH. (This should be the case for all class accounts
 already.)
 

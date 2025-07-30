@@ -128,6 +128,7 @@ public class PriorityScheduler extends Scheduler {
     protected class PriorityQueue extends ThreadQueue {
 	PriorityQueue(boolean transferPriority) {
 	    this.transferPriority = transferPriority;
+	    this.waitQueue = new HashSet<ThreadState>();
 	}
 
 	public void waitForAccess(KThread thread) {
@@ -171,10 +172,26 @@ public class PriorityScheduler extends Scheduler {
 	}
 
 	/**
+	 * Update the effective priority of threads waiting on this queue.
+	 * Called when priority donation needs to be recalculated.
+	 */
+	protected void updateEffectivePriority() {
+	    // Reset effective priority for all waiting threads
+	    for (ThreadState state : waitQueue) {
+		state.effectivePriority = -1;
+	    }
+	}
+
+	/**
 	 * <tt>true</tt> if this queue should transfer priority from waiting
 	 * threads to the owning thread.
 	 */
 	public boolean transferPriority;
+	
+	/**
+	 * The set of threads waiting on this queue.
+	 */
+	protected HashSet<ThreadState> waitQueue;
     }
 
     /**
@@ -274,7 +291,7 @@ public class PriorityScheduler extends Scheduler {
 	/** The priority of the associated thread. */
 	private int priority;
 	/** The effective priority of the associated thread. */
-	private int effectivePriority;
+	protected int effectivePriority;
 	/** The queues that the associated thread has acquired. */
 	private HashSet<PriorityQueue> acquiredQueues = new HashSet<>();
 	/** The queue that the associated thread is waiting for. */
